@@ -1,0 +1,38 @@
+// Dbdiagramio sample model
+// Version 0.1.2 20221216
+// Extract Format dbdiagram.io ER diagram, Logical all fields, all enum, all relations
+// Extract Date 2023-02-23
+
+Table o.OtherIncome {
+  otherIncomeID guid [pk, note: 'D365 internal ID']
+  contactID guid [ref: > o.Contact.contactID, note: 'Implicit FK in JSON structure, not required in payload']
+  otherIncomeSource enum.otherIncomeSourceValues
+  annualGrossIncome Currency
+  netMonthlyIncome Currency
+}
+Table o.Annuity {
+  annuityID guid [pk, note: 'D365 internal ID']
+  contactID guid [ref: > o.Contact.contactID, note: 'Implicit FK in JSON structure, not required in payload']
+  name String
+  pensionType enum.pensionIncomeTypeValues
+  annuityIncome Currency
+  lifeCover Boolean
+  sumAssured Currency
+  policyStatements Blob
+}
+Enum enum.maritalStatusValues {
+  "Civil Partnership"
+  "Divorced"
+  "Married"
+  "Partnered"
+  "Single"
+  "Widowed"
+}
+Enum enum.preferredContactMethodValues {
+  "SMS"
+  "Any"
+  "Correspondence Email"
+  "Fax"
+  "Phone"
+  "Post"
+}
