@@ -142,3 +142,33 @@ CREATE UNIQUE INDEX "UK_rv_l_BusinessAreaConceptualEntity" ON "rv_l_BusinessArea
   , ConceptualEntityHashKey
 );
 
+CREATE TABLE stg_Py_XL_CE_to_CETypeOf
+(
+    ConceptualEntityKeyPhrase varchar(500) NOT NULL
+  , ConceptualEntity_TypeOfKeyPhrase varchar(500) NOT NULL
+
+  , ConceptualEntityConceptualEntity_TypeOfKeyPhrase varchar(601) NOT NULL
+
+  , LoadDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  , RecordSource nvarchar(500) NULL
+  
+  , ConceptualEntityConceptualEntity_TypeOfHashKey char(32) NULL
+  , ConceptualEntityHashKey char(32) NULL
+  , ConceptualEntity_TypeOfHashKey char(32) NULL
+);
+
+CREATE TABLE rv_l_ConceptualEntityConceptualEntity_TypeOf
+(
+    ConceptualEntityConceptualEntity_TypeOfHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , ConceptualEntityHashKey varchar(100) NOT NULL
+  , ConceptualEntity_TypeOfHashKey varchar(100) NOT NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_l_ConceptualEntityConceptualEntity_TypeOf" ON "rv_l_ConceptualEntityConceptualEntity_TypeOf" (ConceptualEntityConceptualEntity_TypeOfHashKey);
+CREATE UNIQUE INDEX "UK_rv_l_ConceptualEntityConceptualEntity_TypeOf" ON "rv_l_ConceptualEntityConceptualEntity_TypeOf" (
+  ConceptualEntityHashKey
+  , ConceptualEntity_TypeOfHashKey
+);
+
