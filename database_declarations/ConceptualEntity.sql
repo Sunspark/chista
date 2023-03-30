@@ -2,6 +2,7 @@ CREATE TABLE stg_Py_iServerToConceptual
 (
     ModelKeyPhrase varchar(100) NOT NULL
   , ConceptualEntityKeyPhrase varchar(500) NOT NULL
+  , BusinessAreaKeyPhrase varchar(500) NULL
 
   , "Name" varchar(500) NOT NULL
   , "isDeleted" boolean NULL
@@ -27,13 +28,16 @@ CREATE TABLE stg_Py_iServerToConceptual
   , "Filter Set" varchar(100) NULL
   
   , ModelConceptualEntityKeyPhrase varchar(601) NOT NULL
-  
+  , BusinessAreaConceptualEntityKeyPhrase varchar(601) NULL
+
   , LoadDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
   , RecordSource nvarchar(500) NULL
   
   , ModelHashKey char(32) NULL
   , ConceptualEntityHashKey char(32) NULL
   , ModelConceptualEntityHashKey char(32) NULL
+  , BusinessAreaHashKey varchar(100) NULL
+  , BusinessAreaConceptualEntityHashKey char(32) NULL
   , HashDiff char(32) NULL
 );
 
@@ -57,7 +61,7 @@ CREATE TABLE rv_s_ConceptualEntity_iServer
   , HashDiff char(32) NOT NULL
   
   , "Name" varchar(500) NOT NULL
-  , "isDeleted" boolean NULL
+  , "isDeleted" boolean NOT NULL DEFAULT 0
   , "Description" varchar(1000) NULL
   , "Definition" varchar(1000) NULL
   , "SubType" varchar(100) NULL
@@ -98,6 +102,43 @@ CREATE TABLE rv_l_ModelConceptualEntity
 CREATE UNIQUE INDEX "PK_rv_l_ModelConceptualEntity" ON "rv_l_ModelConceptualEntity" (ModelConceptualEntityHashKey);
 CREATE UNIQUE INDEX "UK_rv_l_ModelConceptualEntity" ON "rv_l_ModelConceptualEntity" (
   ModelHashKey
+  , ConceptualEntityHashKey
+);
+
+CREATE VIEW bv_ConceptualEntity AS
+SELECT
+    h.ConceptualEntityKeyPhrase
+  , s.Name AS ConceptualEntityName
+  , s.Description
+  , s.Definition
+  , s."Data Subject Area" AS BusinessAreaName
+FROM
+  rv_h_ConceptualEntity AS h
+  LEFT JOIN rv_s_ConceptualEntity_iServer AS s ON (
+    h.ConceptualEntityHashKey = s.ConceptualEntityHashKey
+    AND s.LoadDate = (
+      SELECT MAX(z.LoadDate)
+      FROM rv_s_ConceptualEntity_iServer AS z
+      WHERE z.ConceptualEntityHashKey = s.ConceptualEntityHashKey
+    )
+  )
+WHERE
+  s.isDeleted = 0
+;
+
+CREATE TABLE rv_l_BusinessAreaConceptualEntity
+(
+    BusinessAreaConceptualEntityHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  
+  , BusinessAreaHashKey varchar(100) NOT NULL
+  , ConceptualEntityHashKey varchar(100) NOT NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_l_BusinessAreaConceptualEntity" ON "rv_l_BusinessAreaConceptualEntity" (BusinessAreaConceptualEntityHashKey);
+CREATE UNIQUE INDEX "UK_rv_l_BusinessAreaConceptualEntity" ON "rv_l_BusinessAreaConceptualEntity" (
+  BusinessAreaHashKey
   , ConceptualEntityHashKey
 );
 
