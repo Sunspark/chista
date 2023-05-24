@@ -108,6 +108,7 @@ CREATE UNIQUE INDEX "UK_rv_l_ModelConceptualEntity" ON "rv_l_ModelConceptualEnti
 CREATE VIEW bv_ConceptualEntity AS
 SELECT
     h.ConceptualEntityKeyPhrase
+  , h.ConceptualEntityHashKey
   , s.Name AS ConceptualEntityName
   , s.Description
   , s.Definition
@@ -172,3 +173,54 @@ CREATE UNIQUE INDEX "UK_rv_l_ConceptualEntityConceptualEntity_TypeOf" ON "rv_l_C
   , ConceptualEntity_TypeOfHashKey
 );
 
+CREATE TABLE stg_Py_XL_CE_to_CERelated
+(
+    ConceptualEntityKeyPhrase varchar(500) NOT NULL
+  , ConceptualEntity_RelatedKeyPhrase varchar(500) NOT NULL
+
+  , ConceptualEntityConceptualEntity_RelatedKeyPhrase varchar(601) NOT NULL
+
+  , LoadDate datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  , RecordSource nvarchar(500) NULL
+
+  , label_forward nvarchar(500) NULL
+  , isDeleted boolean NOT NULL DEFAULT 0
+  , DeletedDate datetime NULL
+  
+  , ConceptualEntityConceptualEntity_RelatedHashKey char(32) NULL
+  , ConceptualEntityHashKey char(32) NULL
+  , ConceptualEntity_RelatedHashKey char(32) NULL
+  , HashDiff char(32) NULL
+);
+
+CREATE TABLE rv_l_ConceptualEntityConceptualEntity_Related
+(
+    ConceptualEntityConceptualEntity_RelatedHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , ConceptualEntityHashKey varchar(100) NOT NULL
+  , ConceptualEntity_RelatedHashKey varchar(100) NOT NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_l_ConceptualEntityConceptualEntity_Related" ON "rv_l_ConceptualEntityConceptualEntity_Related" (ConceptualEntityConceptualEntity_RelatedHashKey);
+CREATE UNIQUE INDEX "UK_rv_l_ConceptualEntityConceptualEntity_Related" ON "rv_l_ConceptualEntityConceptualEntity_Related" (
+  ConceptualEntityHashKey
+  , ConceptualEntity_RelatedHashKey
+);
+
+CREATE TABLE rv_s_ConceptualEntityConceptualEntity_Related
+(
+    ConceptualEntityConceptualEntity_RelatedHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , label_forward nvarchar(500) NULL
+  , isDeleted boolean NOT NULL DEFAULT 0
+  , DeletedDate datetime NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_ConceptualEntityConceptualEntity_Related" ON "rv_s_ConceptualEntityConceptualEntity_Related" (
+  ConceptualEntityConceptualEntity_RelatedHashKey
+  , LoadDate
+);
