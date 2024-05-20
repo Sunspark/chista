@@ -1,3 +1,4 @@
+-- System.server_name.database.schema.table.field
 CREATE TABLE rv_h_PhysicalAttribute
 (
     PhysicalAttributeHashKey char(32) NOT NULL
