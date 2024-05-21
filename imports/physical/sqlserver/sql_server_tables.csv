@@ -1,0 +1,11 @@
+SERVER_NAME,DATABASE_NAME,SCHEMA_NAME,TABLE_NAME,ROW_COUNT,TABLE_TYPE,TABLE_TYPE_DESCRIPTION,COLUMN_COUNT,TABLE_DESCRIPTION
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,0,U ,USER_TABLE,7,
+ServerNameHere,YourDBHere,dbo,re_subsid_accs,0,U ,USER_TABLE,16,
+ServerNameHere,YourDBHere,dbo,wf_icr_index,0,U ,USER_TABLE,8,
+ServerNameHere,YourDBHere,dbo,co_cred_header,0,U ,USER_TABLE,20,
+ServerNameHere,YourDBHere,dbo,ih_location_dh,1,U ,USER_TABLE,23,
+ServerNameHere,YourDBHere,dbo,re_ex_standard_reports,16310,U ,USER_TABLE,62,
+ServerNameHere,YourDBHere,dbo,ts_audit_actions,0,U ,USER_TABLE,8,
+ServerNameHere,YourDBHere,dbo,bd_payers,0,U ,USER_TABLE,32,
+ServerNameHere,YourDBHere,dbo,ih_cs_q_dtl,0,U ,USER_TABLE,23,
+ServerNameHere,YourDBHere,dbo,ps_psl_not_renew_reason,0,U ,USER_TABLE,8,

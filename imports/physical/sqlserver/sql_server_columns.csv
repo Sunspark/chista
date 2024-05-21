@@ -1,0 +1,11 @@
+SERVER_NAME,DATABASE_NAME,TABLE_SCHEMA,TABLE_NAME,COLUMN_NAME,ORDINAL_POSITION,COLUMN_DEFAULT,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_OCTET_LENGTH,NUMERIC_PRECISION,NUMERIC_PRECISION_RADIX,NUMERIC_SCALE,DATETIME_PRECISION,CHARACTER_SET_CATALOG,CHARACTER_SET_SCHEMA,CHARACTER_SET_NAME,COLLATION_CATALOG,COLLATION_SCHEMA,COLLATION_NAME,DOMAIN_CATALOG,DOMAIN_SCHEMA,DOMAIN_NAME,COLUMN_DESCRIPTION
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,prrowid,1,,NO,varchar,36.0,36.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,org_code,2,,YES,varchar,16.0,16.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,question_set,3,,YES,varchar,16.0,16.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,location_type,4,,YES,varchar,16.0,16.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,Pro2SrcPDB,5,,YES,varchar,12.0,12.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,pro2created,6,,YES,datetime,,,,,,3.0,,,,,,,,,,
+ServerNameHere,YourDBHere,dbo,ih_quset_loctype,pro2modified,7,,YES,datetime,,,,,,3.0,,,,,,,,,,
+ServerNameHere,YourDBHere,dbo,re_subsid_accs,prrowid,1,,NO,varchar,36.0,36.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,re_subsid_accs,org_code,2,,YES,varchar,16.0,16.0,,,,,,,iso_1,,,Latin1_General_CI_AS,,,,
+ServerNameHere,YourDBHere,dbo,re_subsid_accs,tncy_sys_ref,3,,YES,int,,,10.0,10.0,0.0,,,,,,,,,,,

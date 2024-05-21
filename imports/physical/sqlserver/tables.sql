@@ -17,6 +17,7 @@ SELECT
   , T.type_desc AS [TABLE_TYPE_DESCRIPTION] -- this shows table or view
   , T.max_column_id_used AS [COLUMN_COUNT] -- This isn't exactly column count, but it's an exact proxy.
   -- doesn't have descriptions .. yet
+  , NULL AS [TABLE_DESCRIPTION]
 FROM
   sys.tables AS T
   INNER JOIN sys.schemas AS S ON (
