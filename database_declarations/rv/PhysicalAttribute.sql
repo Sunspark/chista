@@ -1,51 +1,51 @@
--- System.server_name.database.schema.table.field
 CREATE TABLE rv_h_PhysicalAttribute
 (
     PhysicalAttributeHashKey char(32) NOT NULL
   , LoadDate datetime NOT NULL
   , RecordSource nvarchar(500) NOT NULL
   
-  , PhysicalAttributeKeyPhrase varchar(100) NOT NULL
+  , PhysicalAttributeKeyPhrase varchar(1000) NOT NULL -- System.server_name.database.schema.table.field
 )
 ;
 CREATE UNIQUE INDEX "PK_rv_h_PhysicalAttribute" ON "rv_h_PhysicalAttribute" (PhysicalAttributeHashKey);
 CREATE UNIQUE INDEX "UK_rv_h_PhysicalAttribute" ON "rv_h_PhysicalAttribute" (PhysicalAttributeKeyPhrase);
 
-CREATE TABLE rv_s_PhysicalAttribute_sqlserver
+CREATE TABLE rv_s_PhysicalAttribute_SqlServerScrape
 (
     PhysicalAttributeHashKey char(32) NOT NULL
   , LoadDate datetime NOT NULL
   , RecordSource nvarchar(500) NOT NULL
   , HashDiff char(32) NOT NULL
   
-  ,
-  SERVER_NAME TEXT,
-  "DATABASE_NAME" TEXT,
-  TABLE_SCHEMA TEXT,
-  TABLE_NAME TEXT,
-  COLUMN_NAME TEXT,
-  ORDINAL_POSITION INT,
-  COLUMN_DEFAULT REAL,
-  IS_NULLABLE TEXT,
-  DATA_TYPE TEXT,
-  CHARACTER_MAXIMUM_LENGTH REAL,
-  CHARACTER_OCTET_LENGTH REAL,
-  NUMERIC_PRECISION REAL,
-  NUMERIC_PRECISION_RADIX REAL,
-  NUMERIC_SCALE REAL,
-  DATETIME_PRECISION REAL,
-  CHARACTER_SET_CATALOG REAL,
-  CHARACTER_SET_SCHEMA REAL,
-  CHARACTER_SET_NAME TEXT,
-  COLLATION_CATALOG REAL,
-  COLLATION_SCHEMA REAL,
-  COLLATION_NAME TEXT,
-  DOMAIN_CATALOG REAL,
-  DOMAIN_SCHEMA REAL,
-  DOMAIN_NAME REAL
+  , SERVER_NAME varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , SCHEMA_NAME varchar(100) NULL
+  , TABLE_NAME varchar(100) NULL
+  , COLUMN_NAME varchar(100) NULL
+
+  , ORDINAL_POSITION INT NULL
+  , COLUMN_DEFAULT varchar(100) NULL
+  , IS_NULLABLE bit NULL
+  , DATA_TYPE varchar(20) NULL
+  , CHARACTER_MAXIMUM_LENGTH INT NULL
+  , CHARACTER_OCTET_LENGTH INT NULL
+  , NUMERIC_PRECISION INT NULL
+  , NUMERIC_PRECISION_RADIX INT NULL
+  , NUMERIC_SCALE INT NULL
+  , DATETIME_PRECISION INT NULL
+  , CHARACTER_SET_CATALOG varchar(100) NULL
+  , CHARACTER_SET_SCHEMA varchar(100) NULL
+  , CHARACTER_SET_NAME varchar(100) NULL
+  , COLLATION_CATALOG varchar(100) NULL
+  , COLLATION_SCHEMA varchar(100) NULL
+  , COLLATION_NAME varchar(100) NULL
+  , DOMAIN_CATALOG varchar(100) NULL
+  , DOMAIN_SCHEMA varchar(100) NULL
+  , DOMAIN_NAME varchar(100) NULL
+  , COLUMN_DESCRIPTION varchar(1000) NULL
 )
 ;
-CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_sqlserver" ON "rv_s_PhysicalAttribute_sqlserver" (
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_SqlServerScrape" ON "rv_s_PhysicalAttribute_SqlServerScrape" (
   PhysicalAttributeHashKey
   , LoadDate
 );
@@ -71,6 +71,23 @@ CREATE TABLE rv_s_PhysicalAttribute_dataverse
 )
 ;
 CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_dataverse" ON "rv_s_PhysicalAttribute_dataverse" (
+  PhysicalAttributeHashKey
+  , LoadDate
+);
+
+CREATE TABLE rv_s_PhysicalAttribute_AnalysisTag
+(
+    PhysicalAttributeHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , Tag varchar(100) NULL
+  , StartDate datetime NULL
+  , EndDate datetime NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_AnalysisTag" ON "rv_s_PhysicalAttribute_AnalysisTag" (
   PhysicalAttributeHashKey
   , LoadDate
 );
