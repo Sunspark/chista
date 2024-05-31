@@ -56,7 +56,6 @@ CREATE TABLE rv_s_PhysicalStructure_AnalysisTag
     PhysicalStructureHashKey char(32) NOT NULL
   , LoadDate datetime NOT NULL
   , RecordSource nvarchar(500) NOT NULL
-  , HashDiff char(32) NOT NULL
   
   , Tag varchar(100) NULL
   , StartDate datetime NULL
@@ -66,6 +65,7 @@ CREATE TABLE rv_s_PhysicalStructure_AnalysisTag
 CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_AnalysisTag" ON "rv_s_PhysicalStructure_AnalysisTag" (
   PhysicalStructureHashKey
   , LoadDate
+  , Tag
 );
 
 CREATE TABLE rv_l_ModelPhysicalStructure
