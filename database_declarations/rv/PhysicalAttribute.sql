@@ -80,7 +80,6 @@ CREATE TABLE rv_s_PhysicalAttribute_AnalysisTag
     PhysicalAttributeHashKey char(32) NOT NULL
   , LoadDate datetime NOT NULL
   , RecordSource nvarchar(500) NOT NULL
-  , HashDiff char(32) NOT NULL
   
   , Tag varchar(100) NULL
   , StartDate datetime NULL
@@ -90,6 +89,7 @@ CREATE TABLE rv_s_PhysicalAttribute_AnalysisTag
 CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_AnalysisTag" ON "rv_s_PhysicalAttribute_AnalysisTag" (
   PhysicalAttributeHashKey
   , LoadDate
+  , Tag
 );
 
 -- A structure has attributes

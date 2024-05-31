@@ -32,8 +32,8 @@ CREATE TABLE "stg_Py_SqlServerCsvToPhysicalAttribute" (
   , PhysicalStructureKeyPhrase varchar(1000) NULL
   , PhysicalAttributeKeyPhrase varchar(1000) NULL
   , PhysicalStructurePhysicalAttributeKeyPhrase varchar(2000) NULL
-  , PhysicalStructureHashKey char(32) NOT NULL
+  , PhysicalStructureHashKey char(32) NULL
   , PhysicalAttributeHashKey char(32) NOT NULL
-  , PhysicalStructurePhysicalAttributeHashKey char(32) NOT NULL
+  , PhysicalStructurePhysicalAttributeHashKey char(32) NULL
   , HashDiff char(32) NOT NULL
 )
