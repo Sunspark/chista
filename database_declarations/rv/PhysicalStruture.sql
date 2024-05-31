@@ -74,6 +74,27 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_XRMMetadata" ON "rv_s_PhysicalStr
   , LoadDate
 );
 
+CREATE TABLE rv_s_PhysicalStructure_XRMEntityUsage
+(
+    PhysicalStructureHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "SERVER_NAME" varchar(100) NULL
+  , "EntityName" varchar(100) NULL
+  , "EntitySchemaName" varchar(100) NULL
+  , "CountCustomAttributes" INTEGER NULL
+  , "CountRows" INTEGER NULL
+  , "ErrorMessage" varchar(1000) NULL
+  , "CountAttributes" INTEGER NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_XRMEntityUsage" ON "rv_s_PhysicalStructure_XRMEntityUsage" (
+  PhysicalStructureHashKey
+  , LoadDate
+);
+
 CREATE TABLE rv_s_PhysicalStructure_AnalysisTag
 (
     PhysicalStructureHashKey char(32) NOT NULL
