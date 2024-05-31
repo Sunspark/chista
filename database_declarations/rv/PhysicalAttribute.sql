@@ -50,27 +50,26 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_SqlServerScrape" ON "rv_s_Physica
   , LoadDate
 );
 
-CREATE TABLE rv_s_PhysicalAttribute_dataverse
+CREATE TABLE rv_s_PhysicalAttribute_XRMMetadata
 (
     PhysicalAttributeHashKey char(32) NOT NULL
   , LoadDate datetime NOT NULL
   , RecordSource nvarchar(500) NOT NULL
   , HashDiff char(32) NOT NULL
   
-  ,
-  SERVER_NAME TEXT,
-  "Logical Name" TEXT,
-  "Schema Name" TEXT,
-  "Display Name" TEXT,
-  "Attribute Type" TEXT,
-  Description TEXT,
-  "Custom Attribute" INT,
-  Type TEXT,
-  "Additional data" TEXT,
-  entity_schema_name TEXT
+  , "SERVER_NAME" varchar(100) NULL
+  , "entity_logical_name" varchar(100) NULL
+  , "Logical Name" varchar(100) NULL
+  , "Schema Name" varchar(100) NULL
+  , "Display Name" varchar(100) NULL
+  , "Attribute Type" varchar(100) NULL
+  , "Description" varchar(1000) NULL
+  , "Custom Attribute" bit NULL
+  , "Type" varchar(100) NULL
+  , "Additional data" varchar(1000) NULL
 )
 ;
-CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_dataverse" ON "rv_s_PhysicalAttribute_dataverse" (
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_XRMMetadata" ON "rv_s_PhysicalAttribute_XRMMetadata" (
   PhysicalAttributeHashKey
   , LoadDate
 );
