@@ -1,0 +1,42 @@
+CREATE VIEW bv_DataversePhysicalStructureOutputForAnalysis AS
+SELECT
+  ps.PhysicalStructureHashKey
+	, ps.PhysicalStructureKeyPhrase
+ 
+  , sat."SERVER_NAME"
+  , sat."Logical Name"
+  , sat."Schema Name"
+  , sat."Entity"
+  , sat."Plural Display Name"
+  , sat."Object Type Code"
+  , sat."Is Custom Entity"
+  , sat."Ownership Type"
+
+  , eu."CountAttributes"
+  , eu."CountCustomAttributes"
+  , eu."CountRows"
+  , CASE
+		WHEN eu."ErrorMessage" IS NOT NULL
+		THEN 1
+		ELSE 0
+	END AS "isRowCountError"
+
+	, sat."Description"
+FROM
+	rv_h_PhysicalStructure ps
+	INNER JOIN rv_s_PhysicalStructure_XRMMetadata AS sat ON (
+    ps.PhysicalStructureHashKey = sat.PhysicalStructureHashKey
+    AND sat.LoadDate = (
+      SELECT MAX(z.LoadDate)
+      FROM rv_s_PhysicalStructure_XRMMetadata AS z
+      WHERE z.PhysicalStructureHashKey = sat.PhysicalStructureHashKey
+    )
+  )
+  INNER JOIN rv_s_PhysicalStructure_XRMEntityUsage AS eu ON (
+    ps.PhysicalStructureHashKey = eu.PhysicalStructureHashKey
+    AND eu.LoadDate = (
+      SELECT MAX(z.LoadDate)
+      FROM rv_s_PhysicalStructure_XRMEntityUsage AS z
+      WHERE z.PhysicalStructureHashKey = eu.PhysicalStructureHashKey
+    )
+  )
