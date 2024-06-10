@@ -26,7 +26,6 @@ SELECT
   , sat."Schema Name"
   , sat."Display Name"
   , sat."Attribute Type"
-  , sat."Description"
   , sat."Custom Attribute"
   , sat."Type"
   , sat."Additional data"

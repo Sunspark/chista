@@ -1,4 +1,21 @@
 CREATE VIEW bv_DataversePhysicalStructureOutputForAnalysis AS
+WITH
+  tag AS (
+    SELECT 
+      tag.PhysicalStructureHashKey
+      , GROUP_CONCAT(tag.Tag, ";") AS Tags -- This is STRING_AGG in T-SQL
+    FROM
+      rv_s_PhysicalStructure_AnalysisTag tag
+    WHERE
+      tag.LoadDate = (
+        SELECT MAX(z.LoadDate)
+        FROM rv_s_PhysicalStructure_AnalysisTag AS z
+        WHERE z.PhysicalStructureHashKey = tag.PhysicalStructureHashKey
+      )
+      AND tag.EndDate IS NULL
+    GROUP BY
+      tag.PhysicalStructureHashKey
+	)
 SELECT
   ps.PhysicalStructureHashKey
 	, ps.PhysicalStructureKeyPhrase
@@ -22,6 +39,8 @@ SELECT
 	END AS "isRowCountError"
 
 	, sat."Description"
+  , tag."Tags"
+
 FROM
 	rv_h_PhysicalStructure ps
 	INNER JOIN rv_s_PhysicalStructure_XRMMetadata AS sat ON (
@@ -40,3 +59,6 @@ FROM
       WHERE z.PhysicalStructureHashKey = eu.PhysicalStructureHashKey
     )
   )
+  LEFT OUTER JOIN tag ON (
+    ps.PhysicalStructureHashKey = tag.PhysicalStructureHashKey
+  )  
