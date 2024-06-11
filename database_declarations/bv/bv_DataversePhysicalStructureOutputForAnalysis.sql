@@ -51,7 +51,7 @@ FROM
       WHERE z.PhysicalStructureHashKey = sat.PhysicalStructureHashKey
     )
   )
-  INNER JOIN rv_s_PhysicalStructure_XRMEntityUsage AS eu ON (
+  LEFT OUTER JOIN rv_s_PhysicalStructure_XRMEntityUsage AS eu ON (
     ps.PhysicalStructureHashKey = eu.PhysicalStructureHashKey
     AND eu.LoadDate = (
       SELECT MAX(z.LoadDate)
