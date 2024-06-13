@@ -1,4 +1,6 @@
--- This query gets table data from the data dictionary of SQL server
+-- This query gets table data from the data dictionary of SQL server (Azure Synapse Serverless)
+-- This is different from the plain SQL server code as there are different system views available.
+-- Notably, the ROW_COUNT field stays null.
 -- [TODO] Add the code for getting the description from the extended properties
 -- https://www.mssqltips.com/sqlservertip/5384/working-with-sql-server-extended-properties/
 -- MS_Description
@@ -6,6 +8,8 @@
 -- USAGE:
 -- Alter the top two variables to be your server name and DB, as well as the USE statement if desired.
 -- Use your DB interface tool of choice to extract results to a CSV
+
+
 
 USE your_database_here; -- this can't be a variable :(
 
@@ -19,7 +23,7 @@ tables AS (
     , @target_database AS [DATABASE_NAME]
     , S.name AS [SCHEMA_NAME]
     , T.name AS [TABLE_NAME]
-    , I.rows AS [ROW_COUNT]
+    , NULL AS [ROW_COUNT]
     , CASE
       WHEN (T.type = 'U' AND T.is_external = 1) THEN 'EX'
       ELSE T.type
@@ -45,10 +49,6 @@ tables AS (
     INNER JOIN sys.schemas AS S ON (
       T.schema_id = S.schema_id
     )
-    LEFT OUTER JOIN sys.sysindexes AS I ON ( -- Azure serverless doesn't have this view
-      T.object_id = I.id 
-      AND I.indid < 2
-    )
 )
 , views AS (
   SELECT
@@ -56,7 +56,7 @@ tables AS (
     , @target_database AS [DATABASE_NAME]
     , S.name AS [SCHEMA_NAME]
     , T.name AS [TABLE_NAME]
-    , I.rows AS [ROW_COUNT]
+    , NULL AS [ROW_COUNT]
     , T.type AS [TABLE_TYPE]
     , T.type_desc AS [TABLE_TYPE_DESCRIPTION]
     , (
@@ -75,10 +75,6 @@ tables AS (
     sys.views AS T
     INNER JOIN sys.schemas AS S ON (
       T.schema_id = S.schema_id
-    )
-    LEFT OUTER JOIN sys.sysindexes AS I ON ( -- Azure serverless doesn't have this view
-      T.object_id = I.id 
-      AND I.indid < 2
     )
 )
 SELECT * FROM tables
