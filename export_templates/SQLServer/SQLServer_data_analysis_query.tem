@@ -1,0 +1,85 @@
+USE {{ template_data.target_db_name }};
+{% for row_group in template_data.target_row_groups %}
+SELECT * FROM
+(
+{%   for row in row_group %}
+  (
+    SELECT
+        '{{ template_data.target_server_name }}' AS SERVER_NAME
+      , '{{ template_data.target_db_name }}' AS DATABASE_NAME
+      , '{{ row.SCHEMA_NAME }}' AS SCHEMA_NAME
+      , '{{ row.TABLE_NAME }}' AS TABLE_NAME
+      , '{{ row.COLUMN_NAME }}' AS COLUMN_NAME
+      , '{{ template_data.date_string }}' AS SCAN_DATE
+      , NULL_COUNT
+      , NOT_NULL_COUNT
+      , CASE
+        WHEN (NULL_COUNT + NOT_NULL_COUNT) != 0
+        THEN ROUND(((CAST(NULL_COUNT AS FLOAT) / (CAST(NULL_COUNT AS FLOAT) + CAST(NOT_NULL_COUNT AS FLOAT))) * 100), 2)
+        ELSE NULL
+      END AS NULL_PERCENT
+      , CASE
+        WHEN (NULL_COUNT + NOT_NULL_COUNT) != 0
+        THEN ROUND(((CAST(NOT_NULL_COUNT AS FLOAT) / (CAST(NULL_COUNT AS FLOAT) + CAST(NOT_NULL_COUNT AS FLOAT))) * 100), 2)
+        ELSE NULL
+      END AS NOT_NULL_PERCENT
+      , BLANK_COUNT
+      , NOT_BLANK_COUNT
+      , CASE
+        WHEN (BLANK_COUNT + NOT_BLANK_COUNT) != 0
+        THEN ROUND(((CAST(BLANK_COUNT AS FLOAT) / (CAST(BLANK_COUNT AS FLOAT) + CAST(NOT_BLANK_COUNT AS FLOAT))) * 100), 2)
+        ELSE NULL
+      END AS BLANK_PERCENT
+      , CASE
+        WHEN (BLANK_COUNT + NOT_BLANK_COUNT) != 0
+        THEN ROUND(((CAST(NOT_BLANK_COUNT AS FLOAT) / (CAST(BLANK_COUNT AS FLOAT) + CAST(NOT_BLANK_COUNT AS FLOAT))) * 100), 2)
+        ELSE NULL
+      END AS NOT_BLANK_PERCENT
+      , NULL_OR_BLANK_COUNT
+      , NOT_NULL_OR_BLANK_COUNT
+      , CASE
+        WHEN (NULL_OR_BLANK_COUNT + NOT_NULL_OR_BLANK_COUNT) != 0
+        THEN ROUND(((CAST(NULL_OR_BLANK_COUNT AS FLOAT) / (CAST(NULL_OR_BLANK_COUNT AS FLOAT) + CAST(NOT_NULL_OR_BLANK_COUNT AS FLOAT))) * 100), 2)
+        ELSE NULL
+      END AS NULL_OR_BLANK_PERCENT
+      , CASE
+        WHEN (NULL_OR_BLANK_COUNT + NOT_NULL_OR_BLANK_COUNT) != 0
+        THEN ROUND(((CAST(NOT_NULL_OR_BLANK_COUNT AS FLOAT) / (CAST(NULL_OR_BLANK_COUNT AS FLOAT) + CAST(NOT_NULL_OR_BLANK_COUNT AS FLOAT))) * 100), 2)
+        ELSE NULL
+      END AS NOT_NULL_OR_BLANK_PERCENT
+      , COUNT_DISTINCT
+      , CASE
+        --WHEN TYPEOF(MIN_OF_NUMBER) IN ('integer', 'real') THEN MIN_OF_NUMBER -- This line works in SQLite
+        WHEN (ISNUMERIC(MIN_OF_NUMBER) = 1) THEN CAST(MIN_OF_NUMBER AS VARCHAR) -- This line works in SQLServer
+        ELSE NULL
+      END AS MIN_OF_NUMBER
+      , CASE
+        --WHEN TYPEOF(MAX_OF_NUMBER) IN ('integer', 'real') THEN MAX_OF_NUMBER -- This line works in SQLite
+        WHEN (ISNUMERIC(MAX_OF_NUMBER) = 1) THEN CAST(MAX_OF_NUMBER AS VARCHAR) -- This line works in SQLServer
+        ELSE NULL
+      END AS MAX_OF_NUMBER
+      , {% if row.DATA_TYPE in ('datetime', 'datetime2', 'date') %}MIN_OF_NUMBER{% else %}NULL{% endif %} AS MIN_OF_DATE
+      , {% if row.DATA_TYPE in ('datetime', 'datetime2', 'date') %}MAX_OF_NUMBER{% else %}NULL{% endif %} AS MAX_OF_DATE
+    FROM
+      (
+        SELECT
+            (SELECT COUNT(*) FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE "{{ row.COLUMN_NAME }}" IS NULL) AS NULL_COUNT
+          , (SELECT COUNT(*) FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE "{{ row.COLUMN_NAME }}" IS NOT NULL) AS NOT_NULL_COUNT
+          , (SELECT COUNT(*) FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE CAST("{{ row.COLUMN_NAME }}" AS VARCHAR) IN ('', ' ')) AS BLANK_COUNT
+          , (SELECT COUNT(*) FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE NOT (CAST("{{ row.COLUMN_NAME }}" AS VARCHAR) IN ('', ' '))) AS NOT_BLANK_COUNT
+          , (SELECT COUNT(*) FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE "{{ row.COLUMN_NAME }}" IS NULL OR CAST("{{ row.COLUMN_NAME }}" AS VARCHAR) IN ('', ' ')) AS NULL_OR_BLANK_COUNT
+          , (SELECT COUNT(*) FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE NOT ("{{ row.COLUMN_NAME }}" IS NULL OR CAST("{{ row.COLUMN_NAME }}" AS VARCHAR) IN ('', ' '))) AS NOT_NULL_OR_BLANK_COUNT
+          , (SELECT COUNT(DISTINCT "{{ row.COLUMN_NAME }}") FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}" WHERE "{{ row.COLUMN_NAME }}" IS NOT NULL) AS COUNT_DISTINCT
+          , {% if row.DATA_TYPE != 'bit' %}(SELECT MIN("{{ row.COLUMN_NAME }}") FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}"){% else %}NULL{% endif %} AS MIN_OF_NUMBER
+          , {% if row.DATA_TYPE != 'bit' %}(SELECT MAX("{{ row.COLUMN_NAME }}") FROM "{{ row.SCHEMA_NAME }}"."{{ row.TABLE_NAME }}"){% else %}NULL{% endif %} AS MAX_OF_NUMBER
+      ) AS base_count
+  )
+{%     if not loop.last %}
+  UNION
+{%     endif %}
+{%   endfor %}
+) AS INVESTIGATION
+;
+GO
+PRINT N'Done {{ loop.index }} of {{ template_data.target_row_groups|length }} ({{ ((loop.index / template_data.target_row_groups|length)*100)|round(2) }} %)';
+{% endfor %}
