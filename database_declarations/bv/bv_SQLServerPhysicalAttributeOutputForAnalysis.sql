@@ -15,10 +15,10 @@ WITH
       AND tag.EndDate IS NULL
     GROUP BY
       tag.PhysicalAttributeHashKey
-	)
+  )
 SELECT
   ps.PhysicalAttributeHashKey
-	, ps.PhysicalAttributeKeyPhrase
+  , ps.PhysicalAttributeKeyPhrase
  
   , sat.SERVER_NAME
   , sat."DATABASE_NAME"
@@ -45,13 +45,33 @@ SELECT
   , sat.DOMAIN_CATALOG
   , sat.DOMAIN_SCHEMA
   , sat.DOMAIN_NAME
+
+  , satA."SCAN_DATE"
+  , satA."NULL_COUNT"
+  , satA."NOT_NULL_COUNT"
+  , satA."NULL_PERCENT"
+  , satA."NOT_NULL_PERCENT"
+  , satA."BLANK_COUNT"
+  , satA."NOT_BLANK_COUNT"
+  , satA."BLANK_PERCENT"
+  , satA."NOT_BLANK_PERCENT"
+  , satA."NULL_OR_BLANK_COUNT"
+  , satA."NOT_NULL_OR_BLANK_COUNT"
+  , satA."NULL_OR_BLANK_PERCENT"
+  , satA."NOT_NULL_OR_BLANK_PERCENT"
+  , satA."COUNT_DISTINCT"
+  , satA."MIN_OF_NUMBER"
+  , satA."MAX_OF_NUMBER"
+  , satA."MIN_OF_DATE"
+  , satA."MAX_OF_DATE"
+
   , sat.COLUMN_DESCRIPTION
 
   , tag."Tags"
  
 FROM
-	rv_h_PhysicalAttribute ps
-	INNER JOIN rv_s_PhysicalAttribute_SqlServerScrape AS sat ON (
+  rv_h_PhysicalAttribute ps
+  INNER JOIN rv_s_PhysicalAttribute_SqlServerScrape AS sat ON (
     ps.PhysicalAttributeHashKey = sat.PhysicalAttributeHashKey
     AND sat.LoadDate = (
       SELECT MAX(z.LoadDate)
@@ -61,5 +81,13 @@ FROM
   )
   LEFT OUTER JOIN tag ON (
     ps.PhysicalAttributeHashKey = tag.PhysicalAttributeHashKey
+  )
+  LEFT OUTER JOIN rv_s_PhysicalAttribute_SqlServerDataAnalysis AS satA ON (
+    ps.PhysicalAttributeHashKey = satA.PhysicalAttributeHashKey
+    AND satA.LoadDate = (
+      SELECT MAX(z.LoadDate)
+      FROM rv_s_PhysicalAttribute_SqlServerDataAnalysis AS z
+      WHERE z.PhysicalAttributeHashKey = satA.PhysicalAttributeHashKey
+    )
   )
 ;

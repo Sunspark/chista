@@ -209,3 +209,7 @@ CREATE TABLE "rv_s_PhysicalAttribute_SqlServerDataAnalysis" (
   , "MIN_OF_DATE" varchar(30) NULL
   , "MAX_OF_DATE" varchar(30) NULL
 );
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_SqlServerDataAnalysis" ON "rv_s_PhysicalAttribute_SqlServerDataAnalysis" (
+  PhysicalAttributeHashKey
+  , LoadDate
+);
