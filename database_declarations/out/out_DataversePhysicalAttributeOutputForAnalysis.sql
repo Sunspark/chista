@@ -1,4 +1,4 @@
-CREATE VIEW bv_DataversePhysicalAttributeOutputForAnalysis AS
+CREATE VIEW out_DataversePhysicalAttributeOutputForAnalysis AS
 WITH
   tag AS (
     SELECT 

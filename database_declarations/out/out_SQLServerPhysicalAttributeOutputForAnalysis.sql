@@ -1,4 +1,4 @@
-CREATE VIEW bv_SQLServerPhysicalAttributeOutputForAnalysis AS
+CREATE VIEW out_SQLServerPhysicalAttributeOutputForAnalysis AS
 WITH
   tag AS (
     SELECT 
