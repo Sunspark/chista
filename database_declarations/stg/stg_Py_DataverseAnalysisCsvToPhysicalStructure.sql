@@ -1,0 +1,21 @@
+CREATE TABLE "stg_Py_DataverseAnalysisCsvToPhysicalStructure" (
+  "PhysicalStructureHashKey" TEXT,
+  "PhysicalStructureKeyPhrase" TEXT,
+  "SERVER_NAME" TEXT,
+  "Logical Name" TEXT,
+  "Schema Name" TEXT,
+  "Entity" TEXT,
+  "Plural Display Name" TEXT,
+  "Object Type Code" INTEGER,
+  "Is Custom Entity" INTEGER,
+  "Ownership Type" TEXT,
+  "CountAttributes" TEXT,
+  "CountCustomAttributes" TEXT,
+  "CountRows" TEXT,
+  "isRowCountError" INTEGER,
+  "Description" TEXT,
+  "Tags" TEXT,
+  "RecordSource" TEXT,
+  "LoadDate" TIMESTAMP,
+  "HashDiff" TEXT
+);
