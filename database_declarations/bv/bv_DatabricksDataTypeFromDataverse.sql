@@ -7,7 +7,7 @@ SELECT
 		WHEN "Attribute Type" IN ('Whole number', 'State', 'Status') THEN 'INT'
 		WHEN "Attribute Type" = 'BigInt' THEN 'BIGINT'
 		WHEN "Attribute Type" = 'Two options' THEN 'BOOLEAN'
-		WHEN "Attribute Type" IN ('Uniqueidentifier', 'Virtual', 'Text', 'Choice', 'Multiline Text') THEN 'STRING'
+		WHEN "Attribute Type" IN ('Uniqueidentifier', 'Lookup', 'Virtual', 'Text', 'Choice', 'Multiline Text') THEN 'STRING'
 		WHEN "Attribute Type" = 'DateTime'
 		THEN 
 			CASE
