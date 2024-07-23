@@ -143,38 +143,7 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttributePhysicalAttribute_transform" ON "r
 );
 
 -- A Physical attribute can have FK links
-CREATE TABLE rv_l_PhysicalAttributePhysicalAttribute_fk
-(
-    PhysicalAttributePhysicalAttribute_fkHashKey char(32) NOT NULL
-  , LoadDate datetime NOT NULL
-  , RecordSource nvarchar(500) NOT NULL
-  
-  , PhysicalAttribute_codeHashKey varchar(100) NOT NULL
-  , PhysicalAttribute_valueHashKey varchar(100) NOT NULL
-)
-;
-CREATE UNIQUE INDEX "PK_rv_l_PhysicalAttributePhysicalAttribute_fk" ON "rv_l_PhysicalAttributePhysicalAttribute_fk" (PhysicalAttributePhysicalAttribute_fkHashKey);
-CREATE UNIQUE INDEX "UK_rv_l_PhysicalAttributePhysicalAttribute_fk" ON "rv_l_PhysicalAttributePhysicalAttribute_fk" (
-  PhysicalAttribute_codeHashKey
-  , PhysicalAttribute_valueHashKey
-);
-
-CREATE TABLE rv_s_PhysicalAttributePhysicalAttribute_fk
-(
-    PhysicalAttributePhysicalAttribute_fkHashKey char(32) NOT NULL
-  , LoadDate datetime NOT NULL
-  , RecordSource nvarchar(500) NOT NULL
-  , HashDiff char(32) NOT NULL
-  
-  , Enforcement varchar(11) NULL -- one of ENFORCED, NOTENFORCED, LOGICAL
-  , EffectiveStart datetime NULL
-  , EffectiveEnd datetime NULL
-)
-;
-CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttributePhysicalAttribute_fk" ON "rv_s_PhysicalAttributePhysicalAttribute_fk" (
-  PhysicalAttributePhysicalAttribute_fkHashKey
-  , LoadDate
-);
+-- Foreign Keys are in PhysicalForeignKey
 
 -- [TODO] A Physical attribute can have constraints
 
