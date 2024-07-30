@@ -1,5 +1,7 @@
 CREATE TABLE "stg_Py_XRMExcelUsageToPhysicalStructure" (
     "SERVER_NAME" varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
   , "EntityName" varchar(100) NULL
   , "EntitySchemaName" varchar(100) NULL
   , "CountCustomAttributes" INTEGER NULL

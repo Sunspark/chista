@@ -14,6 +14,8 @@ CREATE TABLE "stg_Py_XRMExcelToPhysicalAttribute" (
   , "HashDiff" char(32) NULL
 
   , "SERVER_NAME" varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
   , "entity_logical_name" varchar(100) NULL
   , "Logical Name" varchar(100) NULL
   , "Schema Name" varchar(100) NULL

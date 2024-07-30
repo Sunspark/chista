@@ -62,11 +62,13 @@ CREATE TABLE rv_s_PhysicalStructure_XRMMetadata
   , "Plural Display Name" varchar(100) NULL
   , "Description" varchar(1000) NULL
   , "Schema Name" varchar(100) NULL
-  , "Logical Name" varchar(100) NULL
+  , "Logical Name" varchar(100) NULL -- TABLE_NAME
   , "Object Type Code" int NULL
   , "Is Custom Entity" bit NULL
   , "Ownership Type" varchar(100) NULL
   , "SERVER_NAME" varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
 )
 ;
 CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_XRMMetadata" ON "rv_s_PhysicalStructure_XRMMetadata" (
@@ -81,7 +83,6 @@ CREATE TABLE rv_s_PhysicalStructure_XRMEntityUsage
   , RecordSource nvarchar(500) NOT NULL
   , HashDiff char(32) NOT NULL
   
-  , "SERVER_NAME" varchar(100) NULL
   , "EntityName" varchar(100) NULL
   , "EntitySchemaName" varchar(100) NULL
   , "CountCustomAttributes" INTEGER NULL

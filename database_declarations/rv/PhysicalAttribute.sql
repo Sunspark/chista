@@ -58,6 +58,8 @@ CREATE TABLE rv_s_PhysicalAttribute_XRMMetadata
   , HashDiff char(32) NOT NULL
   
   , "SERVER_NAME" varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
   , "entity_logical_name" varchar(100) NULL
   , "Logical Name" varchar(100) NULL
   , "Schema Name" varchar(100) NULL

@@ -7,7 +7,9 @@ CREATE TABLE "stg_Py_XRMExcelToPhysicalStructure" (
   , "Object Type Code" int NULL
   , "Is Custom Entity" bit NULL
   , "Ownership Type" varchar(100) NULL
-  , "SERVER_NAME" varchar(100) NULL
+  , "SERVER_NAME" varchar(100) 
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
 
   , "RecordSource" nvarchar(500) NULL
   , "LoadDate" datetime NOT NULL
