@@ -2,6 +2,8 @@ CREATE TABLE "stg_Py_DataverseAnalysisCsvToPhysicalStructure" (
   "PhysicalStructureHashKey" TEXT,
   "PhysicalStructureKeyPhrase" TEXT,
   "SERVER_NAME" TEXT,
+  "DATABASE_NAME" TEXT,
+  "SCHEMA_NAME" TEXT,
   "Logical Name" TEXT,
   "Schema Name" TEXT,
   "Entity" TEXT,

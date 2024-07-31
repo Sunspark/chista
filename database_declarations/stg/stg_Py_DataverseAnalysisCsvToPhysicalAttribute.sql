@@ -2,6 +2,8 @@ CREATE TABLE "stg_Py_DataverseAnalysisCsvToPhysicalAttribute" (
 "PhysicalAttributeHashKey" TEXT,
   "PhysicalAttributeKeyPhrase" TEXT,
   "SERVER_NAME" TEXT,
+  "DATABASE_NAME" TEXT,
+  "SCHEMA_NAME" TEXT,
   "entity_logical_name" TEXT,
   "Logical Name" TEXT,
   "Schema Name" TEXT,
