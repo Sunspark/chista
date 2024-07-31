@@ -21,6 +21,8 @@ SELECT
 	, ps.PhysicalAttributeKeyPhrase
  
   , sat."SERVER_NAME"
+  , sat."DATABASE_NAME"
+  , sat."SCHEMA_NAME"
   , sat."entity_logical_name"
   , sat."Logical Name"
   , sat."Schema Name"
