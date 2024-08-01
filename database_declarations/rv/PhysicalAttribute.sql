@@ -93,6 +93,29 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_AnalysisTag" ON "rv_s_PhysicalAtt
   , Tag
 );
 
+CREATE TABLE rv_s_PhysicalAttribute_SynLinkJSON
+(
+    PhysicalAttributeHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "entity_name" varchar(100) NULL
+  , "name" varchar(100) NULL
+  , "dataType" varchar(100) NULL
+  , "maxLength" int NULL
+  , "precision" int NULL
+  , "scale" int NULL
+  , "SERVER_NAME" varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_SynLinkJSON" ON "rv_s_PhysicalAttribute_SynLinkJSON" (
+  PhysicalAttributeHashKey
+  , LoadDate
+);
+
 -- A structure has attributes
 CREATE TABLE rv_l_PhysicalStructurePhysicalAttribute
 (

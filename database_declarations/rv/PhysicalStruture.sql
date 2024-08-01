@@ -113,6 +113,25 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_AnalysisTag" ON "rv_s_PhysicalStr
   , Tag
 );
 
+CREATE TABLE rv_s_PhysicalStructure_SynLinkJSON
+(
+    PhysicalStructureHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "name" varchar(100) NULL
+  , "description" varchar(1000) NULL
+  , "SERVER_NAME" varchar(100) NULL
+  , "DATABASE_NAME" varchar(100) NULL
+  , "SCHEMA_NAME" varchar(100) NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_SynLinkJSON" ON "rv_s_PhysicalStructure_SynLinkJSON" (
+  PhysicalStructureHashKey
+  , LoadDate
+);
+
 CREATE TABLE rv_l_ModelPhysicalStructure
 (
     ModelPhysicalStructureHashKey char(32) NOT NULL
