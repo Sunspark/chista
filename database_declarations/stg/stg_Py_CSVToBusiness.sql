@@ -1,7 +1,8 @@
-CREATE TABLE stg_Py_ExcelToBusiness
+CREATE TABLE stg_Py_CSVToBusiness
 (
     ModelKeyPhrase varchar(100) NOT NULL
   , BusinessName varchar(100) NULL
+  , "Description" varchar(1000) NULL
   
   , ModelBusinessKeyPhrase varchar(201) NOT NULL
   
