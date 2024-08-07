@@ -46,6 +46,27 @@ CREATE UNIQUE INDEX "PK_rv_s_ConceptualEntity_iServer" ON "rv_s_ConceptualEntity
   , LoadDate
 );
 
+CREATE TABLE rv_s_ConceptualEntity_Chista
+(
+    ConceptualEntityHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "EntityName" varchar(500) NULL
+  , "isDeleted" boolean NULL DEFAULT 0
+  , "Description" varchar(1000) NULL
+  , "DisplayName" varchar(500) NULL
+  , "Synonyms" varchar(500) NULL
+  , "DataOwner" varchar(100) NULL
+  , "DataSteward" varchar(100) NULL
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_ConceptualEntity_Chista" ON "rv_s_ConceptualEntity_Chista" (
+  ConceptualEntityHashKey
+  , LoadDate
+);
+
 CREATE TABLE rv_l_ModelConceptualEntity
 (
     ModelConceptualEntityHashKey char(32) NOT NULL
