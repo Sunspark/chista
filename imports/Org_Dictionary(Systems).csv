@@ -1,0 +1,20 @@
+SystemKeyPhrase,SystemName,isDeleted,Description
+OpenHousing,Open Housing (OH),0,A CRM/ ERP system that controls the operations of Vivid. Due to be retired in favour of IPC.
+Calabrio,Calabrio,0,
+DIP,Data Intelligence Platform (DIP),0,A datavault based platform for the storage and mastery of enterprise data
+iPropertyCloud,iProperty Cloud (iPC),0,Abbreviated to IPC. A CRM/ ERP system that controls the operations of Vivid. Coming into use over 2024>26.
+RantAndRave,Rant and Rave,0,Client survey app
+TLFSurvey,TLF Survey,0,Client survey app
+OpenAccounts,Open Accounts,0,Vivid core accounts and legers system
+DRS,Direct Resource Scheduling (DRS),0,Legacy system for scheduling Appointments and Operatives
+TotalMobile,Total Mobile,0,Handheld mobile app for resource to be assigned and report work. Being migrated away from.
+ITCServer,ITC Server,0,A dumping ground DB for ad-hoc data that needed to be stored that doesn't fit in other apps for whatever reason. Contains Test and Prod data
+CompOCR,Compliance OCR System,0,Scans and stores safety certificates (amongst other things)
+Dataverse01,Vivid Dataverse,0,"Power App backend, used by electircal team"
+GISamba,GISamba,0,Map/ area making software that stores maps
+RepairSense,Repair Sense Spreadsheet,0,A spreadsheet of Components due repair in Properties
+GnESheet,G&E Spreadsheet,0,Spreadsheets that comprise the workflow DB/ app of the G&E department
+MaterialsCostSheet,Materials Cost Spreadsheet,0,"Spreadsheets of material costs from suppliers, used for reconciliation"
+Cascade,Cascade (HR),0,Vivid core HR app
+IHAZDataWarehouse,The IHAZ data warehouse,0,An old data replication server. Takes nightly replicas from OH and DRS. Currently feeds the data platform. Due to be retired.
+MoreIQ,More IQ,0,"Auxiliary system for scheduling Appointments and Operatives, alongside IPC scheduling"
