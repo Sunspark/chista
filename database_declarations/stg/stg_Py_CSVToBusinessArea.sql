@@ -1,0 +1,21 @@
+CREATE TABLE "stg_Py_CSVToBusinessArea" (
+"BusinessModelKeyPhrase" TEXT,
+  "BusinessName" TEXT,
+  "BusinessAreaModelKeyPhrase" TEXT,
+  "BusinessAreaName" TEXT,
+  "DisplayName" TEXT,
+  "Description" TEXT,
+  "isDeleted" INTEGER,
+  "BusinessContact" TEXT,
+  "RecordSource" TEXT,
+  "LoadDate" TIMESTAMP,
+  "BusinessAreaKeyPhrase" TEXT,
+  "ModelBusinessAreaKeyPhrase" TEXT,
+  "BusinessBusinessAreaKeyPhrase" TEXT,
+  "BusinessHashKey" TEXT,
+  "ModelHashKey" TEXT,
+  "BusinessAreaHashKey" TEXT,
+  "ModelBusinessAreaHashKey" TEXT,
+  "HashDiff" TEXT,
+  "BusinessBusinessAreaHashKey" TEXT
+)

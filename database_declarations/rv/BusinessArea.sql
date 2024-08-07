@@ -18,8 +18,10 @@ CREATE TABLE rv_s_BusinessArea
   , HashDiff char(32) NOT NULL
   
   , BusinessAreaName varchar(100) NULL
+  , DisplayName varchar(100) NULL
   , Description varchar(1000) NULL
   , isDeleted boolean NULL DEFAULT 0
+  , BusinessContact varchar(100) NULL
 )
 ;
 CREATE UNIQUE INDEX "PK_rv_s_BusinessArea" ON "rv_s_BusinessArea" (
