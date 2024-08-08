@@ -99,6 +99,21 @@ CREATE UNIQUE INDEX "UK_rv_l_BusinessAreaConceptualEntity" ON "rv_l_BusinessArea
   , ConceptualEntityHashKey
 );
 
+CREATE TABLE rv_s_BusinessAreaConceptualEntity
+(
+    BusinessAreaConceptualEntityHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , isDeleted boolean NOT NULL DEFAULT 0
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_BusinessAreaConceptualEntity" ON "rv_s_BusinessAreaConceptualEntity" (
+  BusinessAreaConceptualEntityHashKey
+  , LoadDate
+);
+
 CREATE TABLE rv_l_ConceptualEntityConceptualEntity_TypeOf
 (
     ConceptualEntityConceptualEntity_TypeOfHashKey char(32) NOT NULL
