@@ -121,12 +121,14 @@ CREATE TABLE rv_l_ConceptualEntityConceptualEntity_Related
   , RecordSource nvarchar(500) NOT NULL
   , ConceptualEntityHashKey varchar(100) NOT NULL
   , ConceptualEntity_RelatedHashKey varchar(100) NOT NULL
+  , ForwardRelationPhrase nvarchar(500) NOT NULL
 )
 ;
 CREATE UNIQUE INDEX "PK_rv_l_ConceptualEntityConceptualEntity_Related" ON "rv_l_ConceptualEntityConceptualEntity_Related" (ConceptualEntityConceptualEntity_RelatedHashKey);
 CREATE UNIQUE INDEX "UK_rv_l_ConceptualEntityConceptualEntity_Related" ON "rv_l_ConceptualEntityConceptualEntity_Related" (
   ConceptualEntityHashKey
   , ConceptualEntity_RelatedHashKey
+  , ForwardRelationPhrase
 );
 
 CREATE TABLE rv_s_ConceptualEntityConceptualEntity_Related
@@ -136,9 +138,9 @@ CREATE TABLE rv_s_ConceptualEntityConceptualEntity_Related
   , RecordSource nvarchar(500) NOT NULL
   , HashDiff char(32) NOT NULL
   
-  , label_forward nvarchar(500) NULL
+  , ReverseRelationPhrase nvarchar(500) NULL
   , isDeleted boolean NOT NULL DEFAULT 0
-  , DeletedDate datetime NULL
+  , "Description" nvarchar(500) NULL
 )
 ;
 CREATE UNIQUE INDEX "PK_rv_s_ConceptualEntityConceptualEntity_Related" ON "rv_s_ConceptualEntityConceptualEntity_Related" (
