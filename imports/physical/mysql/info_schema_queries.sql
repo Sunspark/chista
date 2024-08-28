@@ -1,0 +1,119 @@
+-- Get table list
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-tables-table.html
+-- Views appear in the table list, with a table type of 'VIEW'
+-- There is also a views table which holds other info
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-views-table.html
+SELECT
+    'DRS_Core' AS [SERVER_NAME]
+  , 'def' AS [DATABASE_NAME]
+  , TABLE_SCHEMA AS [SCHEMA_NAME]
+  , TABLE_NAME
+  , TABLE_TYPE
+  , ENGINE
+  , TABLE_ROWS AS [ROW_COUNT] -- Isn't exactly accurate, can be up to 40% out
+  , AVG_ROW_LENGTH
+  , DATA_LENGTH
+  , INDEX_LENGTH
+  , AUTO_INCREMENT
+  , UPDATE_TIME -- Isn't exactly accurate, but a good approximation
+  , (
+    SELECT
+      COUNT(*)
+    FROM
+      [INFORMATION_SCHEMA].[COLUMNS] C
+    WHERE
+      C.TABLE_SCHEMA = T.TABLE_SCHEMA
+      AND C.TABLE_NAME = T.TABLE_NAME
+  ) AS [COLUMN_COUNT]
+  , TABLE_COLLATION
+  , TABLE_COMMENT
+FROM
+  INFORMATION_SCHEMA.TABLES T
+;
+
+-- Get column list
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-columns-table.html
+SELECT
+    'DRS_Core' AS [SERVER_NAME]
+  , 'def' AS [DATABASE_NAME]
+  , TABLE_SCHEMA AS [SCHEMA_NAME]
+  , TABLE_NAME
+  , COLUMN_NAME
+  , ORDINAL_POSITION
+  , COLUMN_DEFAULT
+  , IS_NULLABLE
+  , DATA_TYPE
+  , CHARACTER_MAXIMUM_LENGTH
+  , CHARACTER_OCTET_LENGTH
+  , NUMERIC_PRECISION
+  , NUMERIC_SCALE
+  , CHARACTER_SET_NAME 
+  , COLLATION_NAME 
+  , COLUMN_TYPE 
+  , COLUMN_KEY 
+  , EXTRA
+  , COLUMN_COMMENT
+FROM
+  INFORMATION_SCHEMA.COLUMNS
+;
+
+-- Get key list
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-key-column-usage-table.html
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-table-constraints-table.html
+SELECT
+    C.CONSTRAINT_TYPE
+  , U.CONSTRAINT_CATALOG
+  , U.CONSTRAINT_SCHEMA
+  , U.CONSTRAINT_NAME
+  , U.TABLE_CATALOG
+  , U.TABLE_SCHEMA
+  , U.TABLE_NAME
+  , U.COLUMN_NAME
+  , U.ORDINAL_POSITION
+  , U.POSITION_IN_UNIQUE_CONSTRAINT
+  , U.REFERENCED_TABLE_SCHEMA
+  , U.REFERENCED_TABLE_NAME
+  , U.REFERENCED_COLUMN_NAME 
+FROM
+  INFORMATION_SCHEMA.KEY_COLUMN_USAGE U
+  LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS C ON (
+    U.CONSTRAINT_CATALOG = C.CONSTRAINT_CATALOG
+    AND U.CONSTRAINT_SCHEMA = C.CONSTRAINT_SCHEMA
+    AND U.CONSTRAINT_NAME = C.CONSTRAINT_NAME
+  )
+WHERE
+  C.CONSTRAINT_TYPE != 'FOREIGN KEY'
+;
+
+-- Get F-key list
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-key-column-usage-table.html
+-- https://dev.mysql.com/doc/refman/8.4/en/information-schema-table-constraints-table.html
+SELECT
+    C.CONSTRAINT_TYPE
+  , U.CONSTRAINT_CATALOG
+  , U.CONSTRAINT_SCHEMA
+  , 'DRS_Core' AS SERVER_NAME_CHILD
+  , U.TABLE_CATALOG AS DATABASE_NAME_CHILD
+  , U.TABLE_SCHEMA AS SCHEMA_NAME_CHILD
+  , U.TABLE_NAME AS TABLE_NAME_CHILD
+  , U.COLUMN_NAME AS COLUMN_NAME_CHILD
+  , 'DRS_Core' AS SERVER_NAME_PARENT
+  , 'def' AS DATABASE_NAME_PARENT
+  , U.REFERENCED_TABLE_SCHEMA AS SCHEMA_NAME_PARENT
+  , U.REFERENCED_TABLE_NAME AS TABLE_NAME_PARENT
+  , U.REFERENCED_COLUMN_NAME AS COLUMN_NAME_PARENT
+  , U.ORDINAL_POSITION
+  , U.CONSTRAINT_NAME
+  , 'ENFORCED' AS CONSTRAINT_ENFORCEMENT
+  , U.POSITION_IN_UNIQUE_CONSTRAINT
+FROM
+  INFORMATION_SCHEMA.KEY_COLUMN_USAGE U
+  LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS C ON (
+    U.CONSTRAINT_CATALOG = C.CONSTRAINT_CATALOG
+    AND U.CONSTRAINT_SCHEMA = C.CONSTRAINT_SCHEMA
+    AND U.CONSTRAINT_NAME = C.CONSTRAINT_NAME
+  )
+WHERE
+  C.CONSTRAINT_TYPE = 'FOREIGN KEY'
+;
+

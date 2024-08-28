@@ -132,6 +132,35 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_SynLinkJSON" ON "rv_s_PhysicalStr
   , LoadDate
 );
 
+CREATE TABLE rv_s_PhysicalStructure_Mysql
+(
+    PhysicalStructureHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "SERVER_NAME" TEXT
+  , "DATABASE_NAME" TEXT
+  , "SCHEMA_NAME" TEXT
+  , "TABLE_NAME" TEXT
+  , "TABLE_TYPE" TEXT
+  , "ENGINE" TEXT
+  , "ROW_COUNT" TEXT
+  , "AVG_ROW_LENGTH" TEXT
+  , "DATA_LENGTH" TEXT
+  , "INDEX_LENGTH" TEXT
+  , "AUTO_INCREMENT" TEXT
+  , "UPDATE_TIME" TEXT
+  , "COLUMN_COUNT" INTEGER
+  , "TABLE_COLLATION" TEXT
+  , "TABLE_COMMENT" TEXT
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalStructure_Mysql" ON "rv_s_PhysicalStructure_Mysql" (
+  PhysicalStructureHashKey
+  , LoadDate
+);
+
 CREATE TABLE rv_l_ModelPhysicalStructure
 (
     ModelPhysicalStructureHashKey char(32) NOT NULL
