@@ -116,6 +116,39 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_SynLinkJSON" ON "rv_s_PhysicalAtt
   , LoadDate
 );
 
+CREATE TABLE rv_s_PhysicalAttribute_Mysql
+(
+    PhysicalAttributeHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "SERVER_NAME" TEXT
+  , "DATABASE_NAME" TEXT
+  , "SCHEMA_NAME" TEXT
+  , "TABLE_NAME" TEXT
+  , "COLUMN_NAME" TEXT
+  , "ORDINAL_POSITION" INTEGER
+  , "COLUMN_DEFAULT" TEXT
+  , "IS_NULLABLE" TEXT
+  , "DATA_TYPE" TEXT
+  , "CHARACTER_MAXIMUM_LENGTH" INTEGER
+  , "CHARACTER_OCTET_LENGTH" INTEGER
+  , "NUMERIC_PRECISION" INTEGER
+  , "NUMERIC_SCALE" INTEGER
+  , "CHARACTER_SET_NAME" TEXT
+  , "COLLATION_NAME" TEXT
+  , "COLUMN_TYPE" TEXT
+  , "COLUMN_KEY" TEXT
+  , "EXTRA" TEXT
+  , "COLUMN_COMMENT" TEXT
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_Mysql" ON "rv_s_PhysicalAttribute_Mysql" (
+  PhysicalAttributeHashKey
+  , LoadDate
+);
+
 -- A structure has attributes
 CREATE TABLE rv_l_PhysicalStructurePhysicalAttribute
 (
