@@ -1,0 +1,14 @@
+// Table data
+{% for key, column_data in template_data.tables.items() %}
+Table {{ key|safe }} {
+{%   for column_name, column_attributes in column_data.items() %}
+  "{{ column_name }}" {{ column_attributes[0].get('DATA_TYPE') }}{% if column_attributes[0].get('DATA_TYPE') in ('varchar','nvarchar') %}({{ column_attributes[0].get('CHARACTER_MAXIMUM_LENGTH') }}){% elif column_attributes[0].get('DATA_TYPE') in ('decimal','numeric') %}({{ column_attributes[0].get('NUMERIC_PRECISION') }},{{ column_attributes[0].get('NUMERIC_SCALE') }}){% endif %}{% if column_attributes[0].get('IS_NULLABLE') == 'No' %} [not null]{% endif +%}
+{%   endfor %}
+}
+
+{% endfor %}
+
+// FK data
+{% for FK in template_data.FKrecords %}
+Ref: "{{ FK.SCHEMA_NAME_CHILD }}"."{{ FK.TABLE_NAME_CHILD }}"."{{ FK.COLUMN_NAME_CHILD }}" > "{{ FK.SCHEMA_NAME_PARENT }}"."{{ FK.TABLE_NAME_PARENT }}"."{{ FK.COLUMN_NAME_PARENT }}"
+{% endfor %}
