@@ -149,6 +149,27 @@ CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_Mysql" ON "rv_s_PhysicalAttribute
   , LoadDate
 );
 
+CREATE TABLE rv_s_PhysicalAttribute_DBMLtxt
+(
+    PhysicalAttributeHashKey char(32) NOT NULL
+  , LoadDate datetime NOT NULL
+  , RecordSource nvarchar(500) NOT NULL
+  , HashDiff char(32) NOT NULL
+  
+  , "SERVER_NAME" TEXT
+  , "DATABASE_NAME" TEXT
+  , "SCHEMA_NAME" TEXT
+  , "TABLE_NAME" TEXT
+  , "COLUMN_NAME" TEXT
+  , "DATA_TYPE" TEXT
+)
+;
+CREATE UNIQUE INDEX "PK_rv_s_PhysicalAttribute_DBMLtxt" ON "rv_s_PhysicalAttribute_DBMLtxt" (
+  PhysicalAttributeHashKey
+  , LoadDate
+);
+
+
 -- A structure has attributes
 CREATE TABLE rv_l_PhysicalStructurePhysicalAttribute
 (

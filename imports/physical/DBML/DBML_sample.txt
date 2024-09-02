@@ -1,0 +1,10 @@
+Table bookingstatus {
+	bookingstatusid uniqueidentifier [pk]
+}
+
+Table bookableresourcebooking {
+	bookableresourcebookingid uniqueidentifier [pk]
+	bookingstatus lookup 
+
+}
+Ref: bookableresourcebooking.bookingstatus > bookingstatus.bookingstatusid
